@@ -29,7 +29,7 @@ defmodule Learn do
     end
   end
 
-  #task 2 start
+  # task 2 start
   def roman_to_int(s) do
     result = parse(s)
     IO.puts(result)
@@ -51,7 +51,120 @@ defmodule Learn do
   def parse("I" <> rest, total), do: parse(rest, total + 1)
   def parse("", total), do: total
 
-  #task 2 end
+  # task 2 end
 
+  ## task 3
 
+  def is_valid_parentheses(s) do
+    new_list = String.split(s, "", trim: true)
+    data = do_valid_parentheses({[], [], new_list})
+
+    case data do
+      {open, close, s} ->
+        # debug
+        IO.puts('start')
+        IO.puts(open)
+        IO.puts(close)
+        IO.puts(s)
+        IO.puts('end')
+        IO.puts('i loh x2')
+
+      true ->
+        IO.puts('good boy')
+        true
+
+      _ ->
+        IO.puts('poor boy')
+        false
+    end
+  end
+
+  def do_valid_parentheses(data) do
+    # {open, close, s} = data
+    case data do
+      {[], [], []} ->
+        true
+
+      {[], [], _} ->
+        do_parse(data) |> do_valid_parentheses()
+
+      {[], _, _} ->
+        IO.puts('close is not empty')
+
+      {_, [], _} ->
+        do_parse(data) |> do_valid_parentheses()
+
+      {_, _, []} ->
+        now_time_valid_this(data) |> do_valid_parentheses()
+
+      {_, _, _} ->
+        do_parse(data) |> do_valid_parentheses()
+
+      _ ->
+        false
+    end
+  end
+
+  def now_time_valid_this(data) do
+    {open, close, s} = data
+
+    map = %{
+      ")" => "(",
+      "]" => "[",
+      "}" => "{"
+    }
+
+    check = {hd(open), map[hd(close)]}
+
+    case check do
+      {"(", "("} ->
+        {tl(open), tl(close), s}
+
+      {"[", "["} ->
+        {tl(open), tl(close), s}
+
+      {"{", "{"} ->
+        {tl(open), tl(close), s}
+
+      _ ->
+        false
+    end
+  end
+
+  def do_parse(data) do
+    {open, close, s} = data
+
+    if s != [] do
+      case hd(s) do
+        "(" ->
+          new_open = List.insert_at(open, 0, hd(s))
+          {new_open, close, tl(s)}
+
+        ")" ->
+          new_close = List.insert_at(close, 0, hd(s))
+          {open, new_close, tl(s)}
+
+        "[" ->
+          new_open = List.insert_at(open, 0, hd(s))
+          {new_open, close, tl(s)}
+
+        "]" ->
+          new_close = List.insert_at(close, 0, hd(s))
+          {open, new_close, tl(s)}
+
+        "{" ->
+          new_open = List.insert_at(open, 0, hd(s))
+          {new_open, close, tl(s)}
+
+        "}" ->
+          new_close = List.insert_at(close, 0, hd(s))
+          {open, new_close, tl(s)}
+
+        _ ->
+          false
+      end
+    else
+      false
+    end
+  end
 end
