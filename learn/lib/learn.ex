@@ -15,7 +15,7 @@ defmodule Learn do
 
   """
   def hello do
-    IO.puts(["hello"])
+    IO.puts(["Hello World!"])
   end
 
   @spec is_palindrome(x :: integer) :: boolean

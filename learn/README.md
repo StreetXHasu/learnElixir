@@ -2,6 +2,8 @@
 
 1) https://leetcode.com/problems/palindrome-number/
 2) https://leetcode.com/problems/roman-to-integer/
+3) https://leetcode.com/problems/path-sum/
+4) https://leetcode.com/problems/minesweeper/
 
 ## Installation
 
