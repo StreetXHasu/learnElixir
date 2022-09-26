@@ -5,23 +5,15 @@ defmodule Longest_prefix do
     # String.length()
     # |> IO.puts()
 
-    longest_common_prefix(["flower","flow","flight"])
+    longest_common_prefix(["flower", "flow", "flight"])
     |> IO.puts()
   end
 
   @spec longest_common_prefix(strs :: [String.t()]) :: String.t()
   def longest_common_prefix(strs) do
-    for str <- strs do
+    for {str, index_str} <- strs |> Enum.with_index() do
       for {symbol, index} <- to_charlist(str) |> Enum.with_index() do
-        for str2 <- strs do
-          for {symbol2, index2} <- to_charlist(str2) |> Enum.with_index() do
-            # IO.puts("#{symbol} - #{symbol2}")
-            Enum.sum([index2])
-            symbol2 == symbol
-          end
-          |> Enum.at(index)
-        end
-        |> Enum.all?()
+        Enum.at(strs, index_str + 1, str) |> String.at(index) |> to_charlist == [symbol]
       end
     end
     |> checker(strs |> hd)
