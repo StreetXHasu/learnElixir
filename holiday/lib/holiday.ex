@@ -6,19 +6,15 @@ defmodule Holiday do
   @doc """
   Initializing the local database.
 
-  ## Examples
-
-      iex> Holiday.init_db()
-      [%ICalendar.Event{...}]
-
   """
   @spec init_db() :: [%ICalendar.Event{}]
   def init_db() do
     path = Path.expand("lib/us-california-nonworkingdays.ics")
 
-    File.read(path)
-    |> elem(1)
-    |> ICalendar.from_ics()
+    case File.read(path) do
+      {:ok, binary} -> binary |> ICalendar.from_ics()
+      _ -> false
+    end
   end
 
   @doc """
@@ -32,8 +28,8 @@ defmodule Holiday do
 
   ## Examples
 
-      iex> Holiday.is_holiday(Holiday.init_db())
-      true or false
+      iex> Holiday.is_holiday(Holiday.init_db(), ~D[2000-01-01])
+      true
 
   """
   @spec is_holiday(db :: [%ICalendar.Event{}], day :: %Date{}) :: boolean()
@@ -54,14 +50,11 @@ defmodule Holiday do
 
   ## Examples
 
-      iex> Holiday.time_until_holiday(Holiday.init_db(),:day)
-      91.26690972222222
+      iex> Holiday.time_until_holiday(Holiday.init_db(),:day,~U[2022-01-12 00:01:00.00Z])
+      19.999305555555555
 
-      iex> Holiday.time_until_holiday(Holiday.init_db(),:hour)
-      2190.4005555555555
-
-      iex> Holiday.time_until_holiday(Holiday.init_db(),:day, ~U[2022-01-12 00:01:00.00Z])
-      2190.4005555555555
+      iex> Holiday.time_until_holiday(Holiday.init_db(),:hour,~U[2022-01-12 00:01:00.00Z])
+      479.98333333333335
 
   """
   @spec time_until_holiday(
@@ -97,7 +90,7 @@ defmodule Holiday do
   ## Examples
 
       iex> Holiday.show_all_events(Holiday.init_db())
-      New Year's Day: 1970-01-01 00:00:00Z - 1970-01-02 00:00:00Z
+      true
 
   """
   @spec show_all_events(db :: [%ICalendar.Event{}]) :: []
@@ -105,38 +98,47 @@ defmodule Holiday do
     for event <- db do
       # IO.puts(compare_date(event.dtstart, Date.new(2000, 6, 1) |> elem(1)))
       IO.puts("#{event.summary}: #{event.dtstart} - #{event.dtend}")
+      event
     end
+
+    true
   end
 
   defp compare_date(date1, date2) do
-    make_start_date(date1) == Date.new(date2.year, date2.month, date2.day)
+    Date.new(2000, date1.month, date1.day) == Date.new(2000, date2.month, date2.day)
   end
 
   defp make_start_date(date) do
-    new = Date.new(Date.utc_today().year, date.month, date.day) |> elem(1)
+    new = Date.new(2000, date.month, date.day) |> elem(1)
 
     if new.day == 1 and new.month == 1 do
-      Date.new(Date.utc_today().year + 1, date.month, date.day) |> elem(1)
+      Date.new(2000 + 1, date.month, date.day) |> elem(1)
     else
       new
     end
   end
 
-  defp make_fake_date_time(date) do
+  defp make_fake_date_time(%Date{} = date) do
     time = Time.new(0, 0, 0, 0) |> elem(1)
 
     DateTime.new(date, time)
     |> elem(1)
   end
 
+  defp make_fake_date_time(%DateTime{} = date) do
+    %{date | year: 2000}
+  end
+
   defp find_nearest(db, date) do
+    new_date = date |> make_fake_date_time
+
     Enum.min_by(db, fn event ->
-      if Date.diff(make_start_date(event.dtstart), date) > 0 do
-        Date.diff(make_start_date(event.dtstart), date)
+      if Date.diff(make_start_date(event.dtstart), new_date) > 0 do
+        Date.diff(make_start_date(event.dtstart), new_date)
       end
     end).dtstart
-    |> make_start_date()
+    |> make_start_date
     |> make_fake_date_time
-    |> DateTime.diff(date)
+    |> DateTime.diff(new_date)
   end
 end
