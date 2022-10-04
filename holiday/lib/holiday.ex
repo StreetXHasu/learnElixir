@@ -1,4 +1,12 @@
 defmodule Holiday do
+  def start do
+    IO.puts("hi world")
+    person = %Holiday.Person{name: "Bob"}
+    Holiday.Repo.insert(person)
+
+    true
+  end
+
   @moduledoc """
   Documentation for `Holiday`.
   """
