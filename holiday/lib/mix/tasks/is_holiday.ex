@@ -3,9 +3,9 @@ defmodule Mix.Tasks.IsHoliday do
 
   @shortdoc "Returns Yes if today is a holiday, and No it it's not."
   def run(_) do
-    db = Holiday.init_db()
+    {:ok, _} = Application.ensure_all_started(:holiday)
 
-    case Holiday.is_holiday(db) do
+    case Holiday.is_holiday() do
       true -> IO.puts("Yes")
       _ -> IO.puts("No")
     end
