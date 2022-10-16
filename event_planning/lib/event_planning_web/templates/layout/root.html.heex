@@ -15,14 +15,21 @@
   <header>
     <section class="container">
       <nav>
-        <p>Привет, <%= gettext "Welcome to %{name}!" , name: "Phoenix" %>
-        </p>
-        <ul>
-          <li><a href="/login">Login</a></li>
-        </ul>
+
+        <%= gettext "Hi, %{name}!" , name: "Phoenix" %>
+
+          <ul>
+            <li><a href="/login">Login</a></li>
+          </ul>
       </nav>
       <a href="/" class="phx-logo">
         Event planning
+      </a>
+      <a href="/events" class="">
+        Events
+      </a>
+      <a href="/users" class="">
+        Users
       </a>
     </section>
   </header>

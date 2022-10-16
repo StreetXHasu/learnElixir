@@ -22,12 +22,8 @@ defmodule EventPlanningWeb.Router do
 
     post("/login", LoginController, :new)
 
-    get("/users", UserController, :index)
-    post("/users", UserController, :create)
-    delete "/users/:id", UserController, :delete
-    get "/users/:id/edit", UserController, :edit
-    get "/users/new", UserController, :new
-    get "/users/:id", UserController, :show
+    resources("/users", UserController)
+    resources("/events", EventController)
   end
 
   # resources "/u", UserController, only: [:index] do
