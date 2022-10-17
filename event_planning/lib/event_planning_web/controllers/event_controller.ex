@@ -4,6 +4,8 @@ defmodule EventPlanningWeb.EventController do
   alias EventPlanning.Accounts
   alias EventPlanning.Accounts.Event
 
+  plug EventPlanningWeb.Plugs.FakeAuth
+
   def index(conn, _params) do
     events = Accounts.list_events()
     render(conn, "index.html", events: events)
