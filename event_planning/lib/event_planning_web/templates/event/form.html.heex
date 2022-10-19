@@ -1,0 +1,31 @@
+<.form let={f} for={@changeset} action={@action}>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :description %>
+  <%= textarea f, :description %>
+  <%= error_tag f, :description %>
+
+  <%= label f, :dStart %>
+  <%= datetime_select f, :dStart %>
+  <%= error_tag f, :dStart %>
+
+  <%= label f, :dEnd %>
+  <%= datetime_select f, :dEnd %>
+  <%= error_tag f, :dEnd %>
+
+  <%= label f, :isActive %>
+  <%= checkbox f, :isActive %>
+  <%= error_tag f, :isActive %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+</.form>
