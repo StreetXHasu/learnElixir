@@ -5,27 +5,45 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+  <%= label(f, :name) %>
+  <%= text_input(f, :name) %>
+  <%= error_tag(f, :name) %>
 
-  <%= label f, :description %>
-  <%= textarea f, :description %>
-  <%= error_tag f, :description %>
+  <%= label(f, :description) %>
+  <%= textarea(f, :description) %>
+  <%= error_tag(f, :description) %>
 
-  <%= label f, :dStart %>
-  <%= datetime_select f, :dStart %>
-  <%= error_tag f, :dStart %>
+  <%= label(f, :date_start) %>
+  <%= datetime_select(f, :date_start) %>
+  <%= error_tag(f, :date_start) %>
 
-  <%= label f, :dEnd %>
-  <%= datetime_select f, :dEnd %>
-  <%= error_tag f, :dEnd %>
+  <%= label(f, :date_end) %>
+  <%= datetime_select(f, :date_end) %>
+  <%= error_tag(f, :date_end) %>
 
-  <%= label f, :isActive %>
-  <%= checkbox f, :isActive %>
-  <%= error_tag f, :isActive %>
+  <%= label(f, :repeat) %>
+  <%= select(f, :repeat,
+    "No reapet": "disabled",
+    Day: "day",
+    Week: "week",
+    Month: "disabled",
+    Year: "disabled"
+  ) %>
+  <%= error_tag(f, :repeat) %>
+
+  <%= label(f, :repeat_days_week) %>
+  <%= multiple_select(f, :repeat_days_week, [:monday, :tuesday]) %>
+  <%= error_tag(f, :repeat_days_week) %>
+
+  <%= label(f, :repeat_date_end) %>
+  <%= datetime_select(f, :repeat_date_end) %>
+  <%= error_tag(f, :repeat_date_end) %>
+
+  <%= label(f, :is_active) %>
+  <%= checkbox(f, :is_active) %>
+  <%= error_tag(f, :is_active) %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit("Save") %>
   </div>
 </.form>

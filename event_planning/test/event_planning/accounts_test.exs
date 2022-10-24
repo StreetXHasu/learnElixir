@@ -77,7 +77,13 @@ defmodule EventPlanning.AccountsTest do
     end
 
     test "create_event/1 with valid data creates a event" do
-      valid_attrs = %{dEnd: ~N[2022-10-15 11:37:00], dStart: ~N[2022-10-15 11:37:00], description: "some description", isActive: true, name: "some name"}
+      valid_attrs = %{
+        dEnd: ~N[2022-10-15 11:37:00],
+        dStart: ~N[2022-10-15 11:37:00],
+        description: "some description",
+        isActive: true,
+        name: "some name"
+      }
 
       assert {:ok, %Event{} = event} = Accounts.create_event(valid_attrs)
       assert event.dEnd == ~N[2022-10-15 11:37:00]
@@ -93,7 +99,14 @@ defmodule EventPlanning.AccountsTest do
 
     test "update_event/2 with valid data updates the event" do
       event = event_fixture()
-      update_attrs = %{dEnd: ~N[2022-10-16 11:37:00], dStart: ~N[2022-10-16 11:37:00], description: "some updated description", isActive: false, name: "some updated name"}
+
+      update_attrs = %{
+        dEnd: ~N[2022-10-16 11:37:00],
+        dStart: ~N[2022-10-16 11:37:00],
+        description: "some updated description",
+        isActive: false,
+        name: "some updated name"
+      }
 
       assert {:ok, %Event{} = event} = Accounts.update_event(event, update_attrs)
       assert event.dEnd == ~N[2022-10-16 11:37:00]

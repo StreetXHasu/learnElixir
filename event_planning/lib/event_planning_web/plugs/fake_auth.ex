@@ -6,9 +6,9 @@ defmodule EventPlanningWeb.Plugs.FakeAuth do
 
   def call(conn, default) do
     password = checkDefault(conn, default)
-    IO.inspect("")
-    IO.inspect(password)
-    IO.inspect("")
+    # IO.inspect("")
+    # IO.inspect(password)
+    # IO.inspect("")
 
     case password do
       "password" -> conn

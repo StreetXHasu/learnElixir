@@ -5,30 +5,62 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Dstart</th>
-      <th>Dend</th>
-      <th>Isactive</th>
-
+      <th>Start</th>
+      <th>End</th>
+      <th>Repeat</th>
+      <th>Repaet days week</th>
+      <th>Repaet end</th>
+      <th>Active</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for event <- @events do %>
-    <tr>
-      <td><%= event.name %></td>
-      <td><%= event.description %></td>
-      <td><%= event.dStart %></td>
-      <td><%= event.dEnd %></td>
-      <td><%= event.isActive %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.event_path(@conn, :show, event) %></span>
-        <span><%= link "Edit", to: Routes.event_path(@conn, :edit, event) %></span>
-        <span><%= link "Delete", to: Routes.event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+    <%= for event <- @events do %>
+      <tr>
+        <td>
+          <%= event.name %>
+        </td>
+        <td>
+          <%= event.description %>
+        </td>
+        <td>
+          <%= event.date_start %>
+        </td>
+        <td>
+          <%= event.date_end %>
+        </td>
+        <td>
+          <%= event.repeat %>
+        </td>
+        <td>
+          <%= event.repeat_days_week %>
+        </td>
+        <td>
+          <%= event.repeat_date_end %>
+        </td>
+        <td>
+          <%= event.is_active %>
+        </td>
+        <td>
+          <span>
+            <%= link("Show", to: Routes.event_path(@conn, :show, event)) %>
+          </span>
+          <span>
+            <%= link("Edit", to: Routes.event_path(@conn, :edit, event)) %>
+          </span>
+          <span>
+            <%= link("Delete",
+              to: Routes.event_path(@conn, :delete, event),
+              method: :delete,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Event", to: Routes.event_path(@conn, :new) %></span>
+<span>
+  <%= link("New Event", to: Routes.event_path(@conn, :new)) %>
+</span>
