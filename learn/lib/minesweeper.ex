@@ -179,7 +179,13 @@ defmodule Solution do
       List.to_charlist(
         element
         |> elem(1)
-        |> Enum.with_index(fn element2, index2 -> elem(element2, 1) end)
+        |> Enum.with_index(fn element2, index2 ->
+          # trash 2 line
+          Enum.sum(index)
+          Enum.sum(index2)
+          # ok
+          elem(element2, 1)
+        end)
       )
     end)
   end
