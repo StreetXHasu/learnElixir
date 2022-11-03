@@ -11,6 +11,37 @@ defmodule EventPlanningWeb.EventController do
     render(conn, "index.html", events: events)
   end
 
+  @spec mySchedule(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def mySchedule(conn, %{"period" => period}) do
+    case period do
+      "week" ->
+        myScheduleRender(conn, period)
+
+      "month" ->
+        myScheduleRender(conn, period)
+
+      "year" ->
+        myScheduleRender(conn, period)
+
+      _ ->
+        myScheduleRender(conn)
+    end
+  end
+
+  def mySchedule(conn, _params) do
+    myScheduleRender(conn)
+  end
+
+  defp myScheduleRender(conn, period \\ "week") do
+    events = Accounts.list_events()
+    render(conn, "my_schedule.html", events: events, period: period)
+  end
+
+  def nextEvent(conn, _params) do
+    events = Accounts.list_events()
+    render(conn, "next_event.html", events: events)
+  end
+
   def new(conn, _params) do
     changeset = Accounts.change_event(%Event{})
     render(conn, "new.html", changeset: changeset)

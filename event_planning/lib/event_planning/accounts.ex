@@ -117,6 +117,10 @@ defmodule EventPlanning.Accounts do
     Repo.all(Event)
   end
 
+  def my_shedule do
+    # Repo.all(from e in Event, where: e.date_start >= .utc_now())
+  end
+
   @doc """
   Gets a single event.
 

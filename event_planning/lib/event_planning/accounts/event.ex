@@ -35,11 +35,8 @@ defmodule EventPlanning.Accounts.Event do
       :user_id
     ])
     |> validate_required([
-      :name,
-      :description,
       :date_start,
-      :date_end,
-      :is_active
+      :date_end
     ])
   end
 end

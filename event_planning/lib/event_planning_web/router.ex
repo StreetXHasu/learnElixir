@@ -23,6 +23,8 @@ defmodule EventPlanningWeb.Router do
     post("/login", LoginController, :new)
     get("/success", LoginController, :success)
 
+    get("/events/my_schedule", EventController, :mySchedule)
+    get("/events/next_event", EventController, :nextEvent)
     resources("/users", UserController)
     resources("/events", EventController)
   end
