@@ -17,21 +17,21 @@
   <%= datetime_select(f, :date_start) %>
   <%= error_tag(f, :date_start) %>
 
-  <%= label(f, :date_end) %>
-  <%= datetime_select(f, :date_end) %>
+  <%= label(f, "Time End") %>
+  <%= time_select(f, :date_end) %>
   <%= error_tag(f, :date_end) %>
 
   <%= label(f, :repeat) %>
   <%= select(f, :repeat,
     "No reapet": "disabled",
-    Day: "day",
-    Week: "week",
-    Month: "disabled",
-    Year: "disabled"
+    "every Day": "day",
+    "every Week": "week",
+    "every Month": "month",
+    "every Year": "year"
   ) %>
   <%= error_tag(f, :repeat) %>
 
-  <%= label(f, :repeat_days_week) %>
+  <%= label(f, "Repeat days week (*only for Repeat every Week)") %>
   <%= multiple_select(f, :repeat_days_week, [
     :monday,
     :tuesday,
@@ -46,10 +46,6 @@
   <%= label(f, :repeat_date_end) %>
   <%= datetime_select(f, :repeat_date_end) %>
   <%= error_tag(f, :repeat_date_end) %>
-
-  <%= label(f, :is_active) %>
-  <%= checkbox(f, :is_active) %>
-  <%= error_tag(f, :is_active) %>
 
   <div>
     <%= submit("Save") %>

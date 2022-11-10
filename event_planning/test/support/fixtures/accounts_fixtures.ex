@@ -29,7 +29,6 @@ defmodule EventPlanning.AccountsFixtures do
         dEnd: ~N[2022-10-15 11:37:00],
         dStart: ~N[2022-10-15 11:37:00],
         description: "some description",
-        isActive: true,
         name: "some name"
       })
       |> EventPlanning.Accounts.create_event()

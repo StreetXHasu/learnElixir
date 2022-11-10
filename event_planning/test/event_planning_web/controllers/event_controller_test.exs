@@ -7,17 +7,15 @@ defmodule EventPlanningWeb.EventControllerTest do
     dEnd: ~N[2022-10-15 11:37:00],
     dStart: ~N[2022-10-15 11:37:00],
     description: "some description",
-    isActive: true,
     name: "some name"
   }
   @update_attrs %{
     dEnd: ~N[2022-10-16 11:37:00],
     dStart: ~N[2022-10-16 11:37:00],
     description: "some updated description",
-    isActive: false,
     name: "some updated name"
   }
-  @invalid_attrs %{dEnd: nil, dStart: nil, description: nil, isActive: nil, name: nil}
+  @invalid_attrs %{dEnd: nil, dStart: nil, description: nil, name: nil}
 
   describe "index" do
     test "lists all events", %{conn: conn} do

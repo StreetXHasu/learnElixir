@@ -10,7 +10,6 @@ defmodule EventPlanning.Repo.Migrations.CreateEvents do
       add :repeat, :integer, default: 0, null: false
       add :repeat_days_week, {:array, :string}, default: nil, null: true
       add :repeat_date_end, :naive_datetime, default: nil, null: true
-      add :is_active, :boolean, default: false, null: false
       add :user_id, references(:users, on_delete: :nothing), null: true
 
       timestamps()

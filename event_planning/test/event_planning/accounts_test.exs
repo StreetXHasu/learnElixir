@@ -64,7 +64,7 @@ defmodule EventPlanning.AccountsTest do
 
     import EventPlanning.AccountsFixtures
 
-    @invalid_attrs %{dEnd: nil, dStart: nil, description: nil, isActive: nil, name: nil}
+    @invalid_attrs %{dEnd: nil, dStart: nil, description: nil, name: nil}
 
     test "list_events/0 returns all events" do
       event = event_fixture()
@@ -81,7 +81,6 @@ defmodule EventPlanning.AccountsTest do
         dEnd: ~N[2022-10-15 11:37:00],
         dStart: ~N[2022-10-15 11:37:00],
         description: "some description",
-        isActive: true,
         name: "some name"
       }
 
@@ -89,7 +88,6 @@ defmodule EventPlanning.AccountsTest do
       assert event.dEnd == ~N[2022-10-15 11:37:00]
       assert event.dStart == ~N[2022-10-15 11:37:00]
       assert event.description == "some description"
-      assert event.isActive == true
       assert event.name == "some name"
     end
 
@@ -104,7 +102,6 @@ defmodule EventPlanning.AccountsTest do
         dEnd: ~N[2022-10-16 11:37:00],
         dStart: ~N[2022-10-16 11:37:00],
         description: "some updated description",
-        isActive: false,
         name: "some updated name"
       }
 
@@ -112,7 +109,6 @@ defmodule EventPlanning.AccountsTest do
       assert event.dEnd == ~N[2022-10-16 11:37:00]
       assert event.dStart == ~N[2022-10-16 11:37:00]
       assert event.description == "some updated description"
-      assert event.isActive == false
       assert event.name == "some updated name"
     end
 

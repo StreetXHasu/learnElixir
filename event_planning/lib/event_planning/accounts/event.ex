@@ -10,11 +10,10 @@ defmodule EventPlanning.Accounts.Event do
 
     field :repeat, Ecto.Enum, values: [disabled: 0, day: 1, month: 2, week: 3, year: 4]
 
-    field :repeat_days_week, {:array, :string}
+    field :repeat_days_week, {:array, :string}, default: nil
 
     field :repeat_date_end, :naive_datetime
 
-    field :is_active, :boolean, default: false
     field :user_id, :id
 
     timestamps()
@@ -31,7 +30,6 @@ defmodule EventPlanning.Accounts.Event do
       :repeat,
       :repeat_days_week,
       :repeat_date_end,
-      :is_active,
       :user_id
     ])
     |> validate_required([
