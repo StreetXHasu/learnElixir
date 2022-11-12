@@ -64,7 +64,7 @@ defmodule EventPlanning.AccountsTest do
 
     import EventPlanning.AccountsFixtures
 
-    @invalid_attrs %{dEnd: nil, dStart: nil, description: nil, name: nil}
+    @invalid_attrs %{date_end: nil, date_start: nil, description: nil, name: nil}
 
     test "list_events/0 returns all events" do
       event = event_fixture()
@@ -78,15 +78,35 @@ defmodule EventPlanning.AccountsTest do
 
     test "create_event/1 with valid data creates a event" do
       valid_attrs = %{
-        dEnd: ~N[2022-10-15 11:37:00],
-        dStart: ~N[2022-10-15 11:37:00],
+        date_end: ~N[2022-10-15 11:37:00],
+        date_start: ~N[2022-10-15 11:37:00],
+        repeat: 0,
         description: "some description",
         name: "some name"
       }
 
       assert {:ok, %Event{} = event} = Accounts.create_event(valid_attrs)
-      assert event.dEnd == ~N[2022-10-15 11:37:00]
-      assert event.dStart == ~N[2022-10-15 11:37:00]
+      assert event.date_end == ~N[2022-10-15 11:37:00]
+      assert event.date_start == ~N[2022-10-15 11:37:00]
+      assert event.description == "some description"
+      assert event.name == "some name"
+    end
+
+    test "create_event/1 with valid data creates a event with repeat week" do
+      valid_attrs = %{
+        date_end: ~N[2022-11-09 11:37:00],
+        date_start: ~N[2022-11-09 11:37:00],
+        repeat: 2,
+        repeat_days_week: ["friday"],
+        description: "some description",
+        name: "some name"
+      }
+
+      assert {:ok, %Event{} = event} = Accounts.create_event(valid_attrs)
+      assert event.date_end == ~N[2022-11-09 11:37:00]
+      assert event.date_start == ~N[2022-11-09 11:37:00]
+      assert event.repeat == :week
+      assert event.repeat_days_week == ["friday"]
       assert event.description == "some description"
       assert event.name == "some name"
     end
@@ -99,15 +119,16 @@ defmodule EventPlanning.AccountsTest do
       event = event_fixture()
 
       update_attrs = %{
-        dEnd: ~N[2022-10-16 11:37:00],
-        dStart: ~N[2022-10-16 11:37:00],
+        date_end: ~N[2022-10-16 11:37:00],
+        date_start: ~N[2022-10-16 11:37:00],
+        repeat: 0,
         description: "some updated description",
         name: "some updated name"
       }
 
       assert {:ok, %Event{} = event} = Accounts.update_event(event, update_attrs)
-      assert event.dEnd == ~N[2022-10-16 11:37:00]
-      assert event.dStart == ~N[2022-10-16 11:37:00]
+      assert event.date_end == ~N[2022-10-16 11:37:00]
+      assert event.date_start == ~N[2022-10-16 11:37:00]
       assert event.description == "some updated description"
       assert event.name == "some updated name"
     end

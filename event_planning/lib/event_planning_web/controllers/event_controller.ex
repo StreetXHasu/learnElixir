@@ -104,11 +104,17 @@ defmodule EventPlanningWeb.EventController do
   end
 
   defp fix_end_datetime(event_params) do
-    Map.put(
-      event_params,
-      "date_end",
-      Map.merge(event_params["date_start"], event_params["date_end"])
-    )
+    # for test renders errors when data is invalid
+    # my tests didn't pass so I added an if
+    if !event_params["date_start"] or !event_params["date_end"] do
+      event_params
+    else
+      Map.put(
+        event_params,
+        "date_end",
+        Map.merge(event_params["date_start"], event_params["date_end"])
+      )
+    end
   end
 
   def delete(conn, %{"id" => id}) do

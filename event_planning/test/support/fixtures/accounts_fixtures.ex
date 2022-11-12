@@ -26,8 +26,9 @@ defmodule EventPlanning.AccountsFixtures do
     {:ok, event} =
       attrs
       |> Enum.into(%{
-        dEnd: ~N[2022-10-15 11:37:00],
-        dStart: ~N[2022-10-15 11:37:00],
+        date_end: ~N[2022-10-15 11:37:00],
+        date_start: ~N[2022-10-15 11:37:00],
+        repeat: 0,
         description: "some description",
         name: "some name"
       })

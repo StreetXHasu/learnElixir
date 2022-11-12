@@ -133,11 +133,8 @@ defmodule EventPlanning.Accounts do
 
     result
     |> event_repeat()
-    |> event_collision()
     |> Enum.filter(fn x ->
-      NaiveDateTime.diff(x.date_start, date_end, :second)
-      NaiveDateTime.diff(x.date_start, date_end, :second)
-
+      # Something difficult
       cond do
         NaiveDateTime.diff(x.date_start, date_start, :second) >= 0 and
             NaiveDateTime.diff(date_end, x.date_start, :second) >= 0 ->
@@ -147,6 +144,7 @@ defmodule EventPlanning.Accounts do
           false
       end
     end)
+    |> event_collision()
     |> Enum.sort_by(& &1.date_start, Date)
   end
 
@@ -296,9 +294,21 @@ defmodule EventPlanning.Accounts do
     events =
       result
       |> event_repeat()
+      |> Enum.filter(fn x ->
+        cond do
+          NaiveDateTime.diff(x.date_start, DateTime.utc_now(), :second) >= 0 ->
+            true
+
+          true ->
+            false
+        end
+      end)
       |> event_collision()
       |> Enum.sort_by(& &1.date_start, Date)
       |> Enum.take(limit)
+      |> Enum.map(fn x ->
+        Map.put(x, :time_left, NaiveDateTime.diff(x.date_start, DateTime.utc_now()))
+      end)
 
     {events, start_date, limit}
   end

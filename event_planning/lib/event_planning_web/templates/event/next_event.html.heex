@@ -4,11 +4,10 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Time to start</th>
       <th>Start</th>
       <th>End</th>
       <th>Repeat</th>
-      <th>Repaet days week</th>
-      <th>Repaet end</th>
       <th></th>
     </tr>
   </thead>
@@ -19,19 +18,21 @@
           <strong><%= event.name %></strong> <br /> <%= event.description %>
         </td>
         <td>
+          <%= day = trunc(event.time_left / (24 * 60 * 60)) %> days
+          <br /> <%= hours = trunc((event.time_left - day * (24 * 60 * 60)) / (60 * 60)) %> hours
+          <br /> <%= trunc((event.time_left - day * (24 * 60 * 60) - hours * (60 * 60)) / 60) %> minutes
+        </td>
+        <td>
           <%= event.date_start %>
         </td>
         <td>
           <%= event.date_end %>
         </td>
         <td>
-          <%= event.repeat %>
-        </td>
-        <td>
-          <%= event.repeat_days_week %>
-        </td>
-        <td>
-          <%= event.repeat_date_end %>
+          <strong><%= event.repeat %></strong>
+
+          <br /> Repaet days week: <%= event.repeat_days_week %>
+          <br /> Repaet end: <%= event.repeat_date_end %>
         </td>
         <td>
           <span>
