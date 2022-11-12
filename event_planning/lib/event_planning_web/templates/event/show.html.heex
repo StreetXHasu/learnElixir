@@ -1,7 +1,6 @@
 <h1>Show Event</h1>
 
 <ul>
-
   <li>
     <strong>Name:</strong>
     <%= @event.name %>
@@ -13,21 +12,33 @@
   </li>
 
   <li>
-    <strong>Dstart:</strong>
-    <%= @event.dStart %>
+    <strong>Date start:</strong>
+    <%= @event.date_start %>
   </li>
 
   <li>
-    <strong>Dend:</strong>
-    <%= @event.dEnd %>
+    <strong>Date end:</strong>
+    <%= @event.date_end %>
   </li>
 
   <li>
-    <strong>Isactive:</strong>
-    <%= @event.isActive %>
+    <strong>Repaet:</strong>
+    <%= @event.repeat %>
   </li>
-
+  <li>
+    <strong>Repeat week:</strong>
+    <%= @event.repeat_days_week %>
+  </li>
+  <li>
+    <strong>Date end:</strong>
+    <%= @event.date_end %>
+  </li>
+  <li>
+    <strong>User id:</strong>
+    <%= @event.user_id %>
+  </li>
 </ul>
 
-<span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span> |
-<span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>
+<span><%= link("Edit", to: Routes.event_path(@conn, :edit, @event)) %></span>
+|
+<span> <%= link("Back", to: Routes.event_path(@conn, :index)) %> </span>

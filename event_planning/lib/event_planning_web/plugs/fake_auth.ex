@@ -6,12 +6,12 @@ defmodule EventPlanningWeb.Plugs.FakeAuth do
 
   def call(conn, default) do
     password = checkDefault(conn, default)
-    IO.inspect("")
-    IO.inspect(password)
-    IO.inspect("")
+    # IO.inspect("")
+    # IO.inspect(password)
+    # IO.inspect("")
 
     case password do
-      "password" -> conn
+      "password" -> assign(conn, :auth, true)
       _ -> conn |> put_flash(:info, "You must be logged in") |> redirect(to: "/login") |> halt()
     end
   end

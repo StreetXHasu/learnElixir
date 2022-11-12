@@ -1,29 +1,26 @@
-<h1>Listing Events</h1>
-<ul>
-  <li><a href="/events/my_schedule">My schedule</a></li>
-  <li><a href="/events/next_event">Next event</a></li>
-</ul>
+<h1>Next Event</h1>
+<p>Start from: <%= @start %> | Limit: <%= @limit %></p>
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
+      <th>Time to start</th>
       <th>Start</th>
       <th>End</th>
       <th>Repeat</th>
-      <th>Repaet days week</th>
-      <th>Repaet end</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <%= for event <- @events do %>
-      <tr>
+      <tr class={"flex #{if event.color, do: 'bg-yellow'}"}>
         <td>
-          <%= event.name %>
+          <strong><%= event.name %></strong> <br /> <%= event.description %>
         </td>
         <td>
-          <%= event.description %>
+          <%= day = trunc(event.time_left / (24 * 60 * 60)) %> days
+          <br /> <%= hours = trunc((event.time_left - day * (24 * 60 * 60)) / (60 * 60)) %> hours
+          <br /> <%= trunc((event.time_left - day * (24 * 60 * 60) - hours * (60 * 60)) / 60) %> minutes
         </td>
         <td>
           <%= event.date_start %>
@@ -32,13 +29,10 @@
           <%= event.date_end %>
         </td>
         <td>
-          <%= event.repeat %>
-        </td>
-        <td>
-          <%= event.repeat_days_week %>
-        </td>
-        <td>
-          <%= event.repeat_date_end %>
+          <strong><%= event.repeat %></strong>
+
+          <br /> Repaet days week: <%= event.repeat_days_week %>
+          <br /> Repaet end: <%= event.repeat_date_end %>
         </td>
         <td>
           <span>

@@ -3,20 +3,17 @@
     <h1>
       Login
     </h1>
-    <p>Use secret password</p>
+    <p>Use secret "password"</p>
   </div>
 </section>
 
 <section class="row">
-  <div class="column">
-  </div>
+  <div class="column"></div>
   <div class="column">
     <%= form_for :password, Routes.login_path(EventPlanningWeb.Endpoint, :new), fn f -> %>
-      Password:
-      <%= password_input f, :password, value: "" %>
-        <%= submit "Submit" %>
-          <% end %>
+      Password: <%= password_input(f, :password, value: "") %>
+      <%= submit("Submit") %>
+    <% end %>
   </div>
-  <div class="column">
-  </div>
+  <div class="column"></div>
 </section>

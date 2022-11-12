@@ -1,13 +1,11 @@
-<h1>Listing Events</h1>
-<ul>
-  <li><a href="/events/my_schedule">My schedule</a></li>
-  <li><a href="/events/next_event">Next event</a></li>
-</ul>
+<h1>My schedule <%= gettext("for the %{period}!", period: @period) %></h1>
+<p>Period: <%= @start %> - <%= @end_date %></p>
+<a href="?period=week">Week</a> - <a href="?period=month">Month</a> -
+<a href="?period=year">Year</a>
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th>Start</th>
       <th>End</th>
       <th>Repeat</th>
@@ -18,12 +16,9 @@
   </thead>
   <tbody>
     <%= for event <- @events do %>
-      <tr>
+      <tr class={"flex #{if event.color, do: 'bg-yellow'}"}>
         <td>
-          <%= event.name %>
-        </td>
-        <td>
-          <%= event.description %>
+          <strong><%= event.name %></strong> <br /> <%= event.description %>
         </td>
         <td>
           <%= event.date_start %>
