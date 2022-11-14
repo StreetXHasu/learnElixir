@@ -11,7 +11,7 @@ defmodule EventPlanningWeb.Plugs.FakeAuth do
     # IO.inspect("")
 
     case password do
-      "password" -> assign(conn, :auth, true)
+      "password" -> assign(conn, :user_token, true)
       _ -> conn |> put_flash(:info, "You must be logged in") |> redirect(to: "/login") |> halt()
     end
   end

@@ -16,7 +16,8 @@
   </thead>
   <tbody>
     <%= for event <- @events do %>
-      <tr class={"flex #{if event.color, do: 'bg-yellow'}"}>
+      <tr class={"id_#{event.id}"} id={"#{event.id}"}>
+        <input type="hidden" value={"#{event.id}"} />
         <td>
           <strong><%= event.name %></strong> <br /> <%= event.description %>
         </td>
@@ -42,13 +43,7 @@
           <span>
             <%= link("Edit", to: Routes.event_path(@conn, :edit, event)) %>
           </span>
-          <span>
-            <%= link("Delete",
-              to: Routes.event_path(@conn, :delete, event),
-              method: :delete,
-              data: [confirm: "Are you sure?"]
-            ) %>
-          </span>
+          <span class="delete"><a href="" onclick="return false;">Delete(JS)</a></span>
         </td>
       </tr>
     <% end %>
